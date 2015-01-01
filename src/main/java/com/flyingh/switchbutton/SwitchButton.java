@@ -1,6 +1,7 @@
 package com.flyingh.switchbutton;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,8 +23,10 @@ public class SwitchButton extends View {
 
     public SwitchButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        onOffBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.switch_background);
-        slideBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.slide_button);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwitchButton);
+        onOffBitmap = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(R.styleable.SwitchButton_backgroundResId, -1));
+        slideBitmap = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(R.styleable.SwitchButton_slide, -1));
+        on = typedArray.getBoolean(R.styleable.SwitchButton_on, false);
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
